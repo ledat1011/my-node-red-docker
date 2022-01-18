@@ -1,50 +1,18 @@
-FROM node:lts as build
+FROM nodered/node-red
 
-RUN apt-get update \
-  && apt-get install -y build-essential python perl-modules
+# Copy package.json to the WORKDIR so npm builds all
+# of your added nodes modules for Node-RED
+COPY package.json .
+RUN npm install --unsafe-perm --no-update-notifier --no-fund --only=production
 
-RUN deluser --remove-home node \
-  && groupadd --gid 1000 nodered \
-  && useradd --gid nodered --uid 1000 --shell /bin/bash --create-home nodered
+# Copy _your_ Node-RED project files into place
+# NOTE: This will only work if you DO NOT later mount /data as an external volume.
+#       If you need to use an external volume for persistence then
+#       copy your settings and flows files to that volume instead.
+COPY settings.js /data/settings.js
+COPY flows_cred.json /data/flows_cred.json
+COPY flows.json /data/flows.json
 
-RUN mkdir -p /data && chown 1000 /data
-
-USER 1000
-WORKDIR /data
-
-COPY ./package.json /data/
-RUN npm install
-
-## Release image
-FROM node:lts-slim
-
-RUN apt-get update && apt-get install -y perl-modules && rm -rf /var/lib/apt/lists/*
-
-RUN deluser --remove-home node \
-  && groupadd --gid 1000 nodered \
-  && useradd --gid nodered --uid 1000 --shell /bin/bash --create-home nodered
-
-RUN mkdir -p /data && chown 1000 /data
-
-
-COPY ./server.js /data/
-COPY ./settings.js /data/
-COPY ./flows.json /data/
-COPY ./flows_cred.json /data/
-COPY ./package.json /data/
-COPY --from=build /data/node_modules /data/node_modules
-
-
-RUN chgrp -R 0 /data \
-  && chmod -R g=u /data
-
-
-WORKDIR /data
-
-ENV PORT 1880
-ENV NODE_ENV=production
-ENV NODE_PATH=/data/node_modules
-ENV USERNAME=admin
-EXPOSE 1880
-
-CMD ["node", "/data/server.js"]
+# You should add extra nodes via your package.json file but you can also add them here:
+#WORKDIR /usr/src/node-red
+#RUN npm install node-red-node-smooth
