@@ -7,6 +7,14 @@
         "info": ""
     },
     {
+        "id": "fabc49de10cf738c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "88b536b07a6cb09c",
         "type": "debug",
         "z": "3af82246.3634ae",
@@ -37,5 +45,38 @@
         "x": 420,
         "y": 300,
         "wires": []
+    },
+    {
+        "id": "240d05fab329bdfa",
+        "type": "debug",
+        "z": "fabc49de10cf738c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1d46496e3d9648de",
+        "type": "function",
+        "z": "fabc49de10cf738c",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 460,
+        "wires": [
+            []
+        ]
     }
 ]
