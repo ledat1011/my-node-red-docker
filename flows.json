@@ -47,6 +47,19 @@
         "wires": []
     },
     {
+        "id": "8a99a3c4cf504e1a",
+        "type": "catch",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 390,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "240d05fab329bdfa",
         "type": "debug",
         "z": "fabc49de10cf738c",
@@ -75,6 +88,19 @@
         "libs": [],
         "x": 530,
         "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d54f7c3ff488c650",
+        "type": "catch",
+        "z": "fabc49de10cf738c",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 370,
+        "y": 400,
         "wires": [
             []
         ]
